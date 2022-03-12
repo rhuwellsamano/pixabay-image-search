@@ -13,3 +13,5 @@ export const getImages = async (text, count) => {
     console.log(error);
   }
 };
+
+// https://pixabay.com/api/?key=26115194-00e5538dbedabc6a4e981aab1&q=551554

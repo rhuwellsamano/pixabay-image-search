@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import MuiAlert from "@material-ui/lab/Alert";
 import { Box, Snackbar, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -29,11 +28,7 @@ const ExtraBar = ({ open, toggleSnack }) => {
         open={open}
         autoHideDuration={3000}
         onClose={handleClose}
-      >
-        {/* <MuiAlert severity="info" onClose={handleClose}>
-          Number of Images should be between 3 and 200
-        </MuiAlert> */}
-      </Snackbar>
+      ></Snackbar>
     </Box>
   );
 };
