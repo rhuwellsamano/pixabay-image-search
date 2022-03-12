@@ -1,24 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import { Box } from "@material-ui/core";
+import NavBar from "./components/NavBar";
+import SearchOptions from "./components/SearchOptions";
+import { getImages } from "./services/api";
+import ExtraBar from "./components/ExtraBar";
+import Images from "./components/Images";
 
 function App() {
+  const [data, setData] = useState([]);
+  const [text, setText] = useState("cats");
+  const [count, setCount] = useState(20);
+  const [open, toggleExtraBar] = useState(false);
+
+  useEffect(() => {
+    if (count < 3 || count > 200) {
+      toggleExtraBar(true);
+      return;
+    }
+    toggleExtraBar(false);
+
+    const getData = async () => {
+      await getImages(text, count).then((response) => {
+        setData(response.data.hits);
+      });
+    };
+    getData();
+  }, [text, count]);
+
+  const onTextChange = (text) => {
+    setText(text);
+  };
+
+  const onCountChange = (count) => {
+    setCount(count);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box>
+      <NavBar />
+      <SearchOptions
+        onTextChange={onTextChange}
+        onCountChange={onCountChange}
+      />
+      <Images data={data} />
+      <ExtraBar />
+    </Box>
   );
 }
 
